@@ -13,10 +13,6 @@ interface BookItems {
 	title: string,
 }
 
-interface aaa {
-	[index: number]: BookItems
-}
-
 export default function useBestSeller() {
 	const bookItems: BookItems[] = useSelector((state: RootState) => state.bestSeller.payload);
 	const dispatch = useDispatch();

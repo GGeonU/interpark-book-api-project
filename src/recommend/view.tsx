@@ -18,7 +18,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import useBestSeller from "./hooks";
 import _ from 'lodash';
-import {shortenStr} from "../util/string";
+import {convertSystemStr, shortenStr} from "../util/string";
 
 function Copyright() {
 	return (
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 	toolbarSecondary: {
 		justifyContent: 'space-between',
 		overflowX: 'auto',
-		marginTop: '100px',
+		marginTop: '70px',
 	},
 	toolbarLink: {
 		padding: theme.spacing(1),
@@ -80,12 +80,22 @@ const useStyles = makeStyles(theme => ({
 	},
 	card: {
 		display: 'flex',
-	},
+		padding: '20px',
+		paddingTop: '0px',
+		justifyContent: 'space-between',
+		overflow: 'visible',
+		height: '250px',
+		boxShadow: '0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px -16px -6px rgba(0,0,0, 0.025)',
+},
 	cardDetails: {
 		flex: 1,
 	},
 	cardMedia: {
-		width: 160,
+		position: 'relative',
+		width: '150px',
+		height: '210px',
+		top: '-10px',
+		left: '-10px'
 	},
 	markdown: {
 		...theme.typography.body2,
@@ -119,36 +129,6 @@ const sections = [
 	'Health',
 	'Style',
 	'Travel',
-];
-
-const featuredPosts = [
-	{
-		title: 'Featured post',
-		date: 'Nov 12',
-		description:
-			'This is a wider card with supporting text below as a natural lead-in to additional content.',
-	},
-	{
-		title: 'Post title',
-		date: 'Nov 11',
-		description:
-			'This is a wider card with supporting text below as a natural lead-in to additional content.',
-	},
-];
-
-const archives = [
-	'March 2020',
-	'February 2020',
-	'January 2020',
-	'December 2019',
-	'November 2019',
-	'October 2019',
-	'September 2019',
-	'August 2019',
-	'July 2019',
-	'June 2019',
-	'May 2019',
-	'April 2019',
 ];
 
 export default function Blog() {
@@ -231,33 +211,33 @@ export default function Blog() {
 						</Paper>
 						{/* End main featured post */}
 						{/* Sub featured posts */}
-						<Grid container spacing={4}>
+						<Grid container spacing={6}>
 							{bookItems.map(post => (
 								<Grid item key={post.title} xs={12} md={6}>
 									<CardActionArea component="a" href="#">
 										<Card className={classes.card}>
-											<div className={classes.cardDetails}>
-												<CardContent>
-													<Typography component="h2" variant="h5">
-														{post.title}
-													</Typography>
-													<Typography variant="subtitle1" color="textSecondary">
-														{post.author}
-													</Typography>
-													<Typography variant="subtitle1" paragraph>
-														{shortenStr(post.description, 100, true)}
-													</Typography>
-													<Typography variant="subtitle1" color="primary">
-														Continue reading...
-													</Typography>
-												</CardContent>
-											</div>
 											<Hidden xsDown>
 												<CardMedia
 													className={classes.cardMedia}
 													image={post.coverLargeUrl}
 													title="Image title"
 												/>
+											<div className={classes.cardDetails}>
+												<CardContent>
+													<Typography component="h6" variant="h6" align="left" gutterBottom={true}>
+														{post.title}
+													</Typography>
+													<Typography component="p" variant='subtitle2' color="textSecondary" align="left" gutterBottom={true}>
+														{post.author}
+													</Typography>
+													<Typography component="p" variant="subtitle2" color="textSecondary" align="left" gutterBottom={true}>
+														{post.publisher}
+													</Typography>
+													<Typography component="p" variant="subtitle1" color="textPrimary" align="left">
+														{shortenStr(convertSystemStr(post.description), 100, true)}
+													</Typography>
+												</CardContent>
+											</div>
 											</Hidden>
 										</Card>
 									</CardActionArea>
